@@ -3,6 +3,8 @@ import AuthorInfo from "./Steps/AuthorInfo";
 import BookInfo from "./Steps/BookInfo";
 import StockInfo from "./Steps/StockInfo";
 
+import '../MultiStepForm/styles.scss';
+
 import axios from "axios";
 
 export default function MultiStepForm() {
@@ -31,30 +33,30 @@ export default function MultiStepForm() {
   }
 
   return (
-    <div className="form">
-      <div className="form-container"></div>
+    <body>
+      <div className="form">
+        <h1 className="form-header">{FormTitles[page]}</h1>
 
-      <div className="form-header">{FormTitles[page]}</div>
-
-      <div className="form-body">{PageDisplay()}</div>
+        <div className="form-body">{PageDisplay()}</div>
 
 
-      <div className="form-footer">
-        <button
-          disabled={page === 0}
-          onClick={() => {
-            setPage((currPage) => currPage - 1);
-          }}>Prev</button>
-        <button
-          onClick={() => {
-            if (page === FormTitles.length - 1) {
-              axios.post("http://localhost:8080/create", formData).then((response) => {
-                console.log(response);
-              });
-            }
-            setPage((currPage) => currPage + 1);
-          }}>{page === FormTitles.length - 1 ? "Submit" : "Next"}</button>
+        <div className="form-footer">
+          <button
+            disabled={page === 0}
+            onClick={() => {
+              setPage((currPage) => currPage - 1);
+            }}>Prev</button>
+          <button
+            onClick={() => {
+              if (page === FormTitles.length - 1) {
+                axios.post("http://localhost:8080/create", formData).then((response) => {
+                  console.log(response);
+                });
+              }
+              setPage((currPage) => currPage + 1);
+            }}>{page === FormTitles.length - 1 ? "Submit" : "Next"}</button>
+        </div>
       </div>
-    </div>
+    </body>
   );
 }
