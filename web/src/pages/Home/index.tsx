@@ -15,7 +15,6 @@ type BookType = {
   quantityInStock: string;
 }
 
-
 export default function Home() {
   const [listCard, setListCard] = useState([]);
 

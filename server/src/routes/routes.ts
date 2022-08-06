@@ -3,10 +3,20 @@ import { db } from '../server';
 
 const routes = Router();
 
+interface bookJson {
+  bookName: string;
+  bookCategory?: string;
+  bookRealiseDate?: string;
+  authorName?: string;
+  authorBirthDate?: string;
+  authorNationality?: string;
+  quantityInStock?: number;
+}
+
 routes.post('/create', async (req, res) => {
   try {
     const id = req.body.bookName
-    const userJson = {
+    const userJson: bookJson = {
       bookName: req.body.bookName,
       bookCategory: req.body.bookCategory,
       bookRealiseDate: req.body.bookRealiseDate,
@@ -50,7 +60,7 @@ routes.put('/update', async (req, res) => {
   try {
     const id = req.body.id;
     const newFirstName = req.body.firstName;
-    const userRef = await db.collection("users").doc(id).update({
+    const userRef = await db.collection("books").doc(id).update({
       firstName: newFirstName
     });
     res.send(userRef);

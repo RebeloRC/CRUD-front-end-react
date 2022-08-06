@@ -1,11 +1,22 @@
-import React from 'react';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ProtectedRoute from "./components/protectedRoute";
+import { AuthContextProvider } from "./context/AuthContext";
+import Home from "./pages/Home";
+import LoginPage from "./pages/Login";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <h1>Hello World!</h1>
-    </div>
-  );
+    <AuthContextProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route
+            path="/home" element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>} />
+        </Routes>
+      </BrowserRouter>
+    </AuthContextProvider>
+  )
 }
-
-export default App;

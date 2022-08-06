@@ -16,6 +16,7 @@ type CardType = {
 }
 
 export default function Card(props: CardType) {
+
   return (
     <div className="card-container">
       <h1 className="card-title" >Nome: {props.bookName}</h1>
@@ -25,7 +26,7 @@ export default function Card(props: CardType) {
       <p className="card-category" >Data de nascimento do Autor: {props.authorBirthDate}</p>
       <p className="card-category" >Nacionalidade do autor: {props.authorNationality}</p>
       <p className="card-cost" >Quantidade em estoque: {props.quantityInStock}</p>
-      <button>Deletar</button>
+      <button>Editar</button>
     </div>
   )
 }

@@ -1,24 +1,54 @@
+import { useState } from "react";
 import { Button } from "../../components/LoginButton";
+import { useNavigate } from "react-router-dom";
+import { UserAuth } from "../../context/AuthContext";
 
 import '../Login/styles.scss';
 
-export default function LoginPage () {
+export default function LoginPage() {
+  const [userEmail, setUserEmail] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+  // @ts-ignore
+  const { singIn, createUser } = UserAuth();
+  const navigate = useNavigate()
+
+  const register = async () => {
+    try {
+      await createUser(userEmail, userPassword)
+      navigate('/home')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const login = async () => {
+    try {
+      await singIn(userEmail, userPassword)
+      navigate('/home')
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
   return (
-    <body>
-      <div className="container">
-        <form action="">
-          <h1>Login</h1>
-          <div className="form-group">
+    <div className="container">
+      <div className="form">
+        <h1>Login bem-vindo</h1>
+        <div className="form-group">
           <label htmlFor="">Usuario</label>
-          <input type="text" placeholder="Usuario" className="form-control" />
-          </div>
-          <div className="form-group">
+          <input type="text" placeholder="Usuario" className="form-control" onChange={(event) => {
+            setUserEmail(event.target.value);
+          }} />
+        </div>
+        <div className="form-group">
           <label htmlFor="">Senha</label>
-          <input type="password" placeholder="Senha" className="form-control" />
-          </div>
-          <Button type="submit">Login</Button>
-        </form>
+          <input type="password" placeholder="Senha" className="form-control" onChange={(event) => {
+            setUserPassword(event.target.value);
+          }} />
+        </div>
+        <Button onClick={register}>Register</Button>
+        <Button onClick={login}>Login</Button>
       </div>
-    </body>
+    </div>
   );
 }
