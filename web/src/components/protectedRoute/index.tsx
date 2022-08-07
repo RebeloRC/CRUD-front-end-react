@@ -8,9 +8,7 @@ const ProtectedRoute = ({ children }: any) => {
   if (!user) {
     return <Navigate to='/' />
   }
-  return (
-    <div>ProtectedRoute</div>
-  )
+  return children
 }
 
 export default ProtectedRoute

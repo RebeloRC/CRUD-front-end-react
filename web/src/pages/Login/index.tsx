@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Button } from "../../components/LoginButton";
 import { useNavigate } from "react-router-dom";
 import { UserAuth } from "../../context/AuthContext";
 
@@ -17,7 +16,7 @@ export default function LoginPage() {
       await createUser(userEmail, userPassword)
       navigate('/home')
     } catch (error) {
-      console.log(error)
+      alert(error)
     }
   }
 
@@ -26,7 +25,7 @@ export default function LoginPage() {
       await singIn(userEmail, userPassword)
       navigate('/home')
     } catch (error) {
-      console.log(error)
+      alert(error)
     }
   };
 
@@ -46,8 +45,10 @@ export default function LoginPage() {
             setUserPassword(event.target.value);
           }} />
         </div>
-        <Button onClick={register}>Register</Button>
-        <Button onClick={login}>Login</Button>
+        <div className="form-footer">
+          <button onClick={login}>Entrar</button>
+          <button onClick={register}>Registrar</button>
+        </div>
       </div>
     </div>
   );

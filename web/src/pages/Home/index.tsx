@@ -1,10 +1,15 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Card from '../../components/cards';
+import CardsHeader from '../../components/CardsHader';
 import MultiStepForm from '../../components/MultiStepForm';
 import '../Home/styles.scss';
 
 type BookType = {
+  listCard: any;
+  setListCard: any;
+  key: any;
+
   id: string;
   bookName: string;
   bookCategory: string;
@@ -23,10 +28,10 @@ export default function Home() {
       setListCard(response.data);
     })
   }, []);
-
   return (
     <>
       <MultiStepForm />
+      <CardsHeader />
       {listCard.map((value: BookType) => (
         <Card
           listCard={listCard}

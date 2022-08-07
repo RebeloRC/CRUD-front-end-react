@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import { useState } from "react";
 import AuthorInfo from "./Steps/AuthorInfo";
 import BookInfo from "./Steps/BookInfo";
@@ -50,41 +51,41 @@ export default function MultiStepForm() {
   }
 
   return (
-    <body>
-      <div className="form">
-        <h1 className="form-header">{FormTitles[page]}</h1>
+    <div className="form">
+      <h1>{FormTitles[page]}</h1>
+      <div className="form-user-info">
         <h4>Bem-vindo {user && user.email}</h4>
         <button onClick={handleLogout} >logout</button>
+      </div>
+      <div className="form-body">{PageDisplay()}</div>
 
-        <div className="form-body">{PageDisplay()}</div>
 
+      <div className="form-footer">
 
-        <div className="form-footer">
+        <button className="button-control"
+          disabled={page === 0}
+          onClick={() => {
+            setPage((currPage) => currPage - 1);
+          }}>Voltar</button>
 
-          <button
-            disabled={page === 0}
-            onClick={() => {
-              setPage((currPage) => currPage - 1);
-            }}>Voltar</button>
+        <button className="button-control"
+          onClick={() => {
+            if (page === FormTitles.length - 1) {
+              axios.post("http://localhost:8080/create", formData).then((response) => {
+                history.go(0)
+              });
+            }
+            setPage((currPage) => currPage + 1);
+          }}>{page === FormTitles.length - 1 ? "Cadastrar" : "avancar"}</button>
 
-          <button
-            onClick={() => {
-              if (page === FormTitles.length - 1) {
-                axios.post("http://localhost:8080/create", formData).then((response) => {
-                  console.log(response);
-                });
-              }
-              setPage((currPage) => currPage + 1);
-            }}>{page === FormTitles.length - 1 ? "Cadastrar" : "avancar"}</button>
-
-          <button onClick={() => {
+        <button className="button-update"
+          onClick={() => {
             axios.put("http://localhost:8080/update", formData).then((response) => {
-              console.log(response);
+              history.go(0)
             })
           }}  >Atualizar</button>
-          <button  >Excluir</button>
-        </div>
+
       </div>
-    </body>
+    </div>
   );
 }

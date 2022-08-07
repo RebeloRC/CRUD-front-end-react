@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-globals */
+import axios from 'axios';
 import '../cards/styles.scss';
 
 type CardType = {
@@ -15,18 +17,28 @@ type CardType = {
   quantityInStock: string;
 }
 
+
+
+
 export default function Card(props: CardType) {
 
   return (
     <div className="card-container">
-      <h1 className="card-title" >Nome: {props.bookName}</h1>
-      <p className="card-cost" >Categoria: {props.bookCategory}</p>
-      <p className="card-category" >Data de lancamento: {props.bookRealiseDate}</p>
-      <p className="card-category" >Autor: {props.authorName}</p>
-      <p className="card-category" >Data de nascimento do Autor: {props.authorBirthDate}</p>
-      <p className="card-category" >Nacionalidade do autor: {props.authorNationality}</p>
-      <p className="card-cost" >Quantidade em estoque: {props.quantityInStock}</p>
-      <button>Editar</button>
+      <h1 className="card-title" >{props.bookName}</h1>
+      <p>{props.bookCategory}</p>
+      <p>{props.bookRealiseDate}</p>
+      <p>{props.authorName}</p>
+      <p>{props.authorBirthDate}</p>
+      <p>{props.authorNationality}</p>
+      <p>{props.quantityInStock}</p>
+
+      <button className="button-delete"
+        onClick={() => {
+          axios.delete(`http://localhost:8080/delete/${props.bookName}`).then((response) => {
+            history.go(0)
+          })
+        }} >Excluir</button>
+
     </div>
   )
 }

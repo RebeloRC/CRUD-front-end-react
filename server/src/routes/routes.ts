@@ -1,4 +1,4 @@
-import { response, Router } from 'express';
+import { Router } from 'express';
 import { db } from '../server';
 
 const routes = Router();
@@ -46,9 +46,9 @@ routes.get('/read/all', async (req, res) => {
   }
 });
 
-routes.get('/read/:id', async (req, res) => {
+routes.get('/read/:bookName', async (req, res) => {
   try {
-    const userRef = db.collection("users").doc(req.params.id);
+    const userRef = db.collection("books").doc(req.params.bookName);
     const response = await userRef.get();
     res.send(response.data());
   } catch (error) {
@@ -58,10 +58,24 @@ routes.get('/read/:id', async (req, res) => {
 
 routes.put('/update', async (req, res) => {
   try {
-    const id = req.body.id;
-    const newFirstName = req.body.firstName;
+    const id = req.body.bookName
+    const userJson: bookJson = {
+      bookName: req.body.bookName,
+      bookCategory: req.body.bookCategory,
+      bookRealiseDate: req.body.bookRealiseDate,
+      authorName: req.body.authorName,
+      authorBirthDate: req.body.authorBirthDate,
+      authorNationality: req.body.authorNationality,
+      quantityInStock: req.body.quantityInStock
+    }
     const userRef = await db.collection("books").doc(id).update({
-      firstName: newFirstName
+      bookName: req.body.bookName,
+      bookCategory: req.body.bookCategory,
+      bookRealiseDate: req.body.bookRealiseDate,
+      authorName: req.body.authorName,
+      authorBirthDate: req.body.authorBirthDate,
+      authorNationality: req.body.authorNationality,
+      quantityInStock: req.body.quantityInStock
     });
     res.send(userRef);
   } catch (error) {
@@ -69,10 +83,9 @@ routes.put('/update', async (req, res) => {
   }
 });
 
-routes.delete('/delete', async (req, res) => {
+routes.delete('/delete/:bookName', async (req, res) => {
   try {
-    const id = req.body.id;
-    const response = await db.collection("users").doc(id).delete()
+    const response = await db.collection("books").doc(req.params.bookName).delete()
     res.send(response);
   } catch (error) {
     res.send(error);
