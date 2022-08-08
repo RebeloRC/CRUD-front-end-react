@@ -34,7 +34,7 @@ export default function Card(props: CardType) {
 
       <button className="button-delete"
         onClick={() => {
-          axios.delete(`http://localhost:8080/delete/${props.bookName}`).then((response) => {
+          axios.delete(`https://back-end-crudteppa.herokuapp.com/delete/${props.bookName}`).then((response) => {
             history.go(0)
           })
         }} >Excluir</button>

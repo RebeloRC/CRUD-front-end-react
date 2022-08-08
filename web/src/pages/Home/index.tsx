@@ -24,7 +24,7 @@ export default function Home() {
   const [listCard, setListCard] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/read/all").then((response) => {
+    axios.get("https://back-end-crudteppa.herokuapp.com/read/all").then((response) => {
       setListCard(response.data);
     })
   }, []);

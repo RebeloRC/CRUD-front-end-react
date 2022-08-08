@@ -71,7 +71,7 @@ export default function MultiStepForm() {
         <button className="button-control"
           onClick={() => {
             if (page === FormTitles.length - 1) {
-              axios.post("http://localhost:8080/create", formData).then((response) => {
+              axios.post("https://back-end-crudteppa.herokuapp.com/create", formData).then((response) => {
                 history.go(0)
               });
             }
@@ -80,7 +80,7 @@ export default function MultiStepForm() {
 
         <button className="button-update"
           onClick={() => {
-            axios.put("http://localhost:8080/update", formData).then((response) => {
+            axios.put("https://back-end-crudteppa.herokuapp.com/update", formData).then((response) => {
               history.go(0)
             })
           }}  >Atualizar</button>
