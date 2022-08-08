@@ -6,9 +6,9 @@ const routes = Router();
 interface bookJson {
   bookName: string;
   bookCategory?: string;
-  bookRealiseDate?: string;
+  bookRealiseDate?: Date;
   authorName?: string;
-  authorBirthDate?: string;
+  authorBirthDate?: Date;
   authorNationality?: string;
   quantityInStock?: number;
 }
